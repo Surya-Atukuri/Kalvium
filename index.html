@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5f2e9" />
+  <title>Fieldnotes — Find your next visual idea</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="Fieldnotes home">
+      <span class="brand-mark" aria-hidden="true">F</span>
+      <span>fieldnotes</span>
+    </a>
+    <p class="header-note">A small search for a bigger world.</p>
+  </header>
+
+  <main class="page">
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">Your visual field guide</p>
+      <h1 id="page-title">Follow a thought.<br /><span>See where it goes.</span></h1>
+      <p class="intro-copy">Look up a place, a feeling, or something you’ve never noticed before.</p>
+
+      <form id="search-form" class="search-form">
+        <label for="search-input">What would you like to find?</label>
+        <div class="search-row">
+          <input
+            id="search-input"
+            type="search"
+            placeholder="Try “quiet coastlines”"
+            autocomplete="off"
+          />
+          <button id="search-button" type="button">
+            Search <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </form>
+
+      <nav class="suggestions" aria-label="Suggested searches">
+        <span class="suggestions-label">A few places to start</span>
+        <div class="chip-row">
+          <button class="chip" type="button">Wild gardens</button>
+          <button class="chip" type="button">Old bookshops</button>
+          <button class="chip" type="button">Desert light</button>
+          <button class="chip" type="button">Tiny cabins</button>
+        </div>
+      </nav>
+    </section>
+
+    <section class="discover" aria-label="Image search results">
+      <div class="results-heading">
+        <span class="eyebrow">The collection</span>
+        <span class="results-note">Your next find will land here</span>
+      </div>
+      <p id="empty-state" class="empty-state">
+        <span class="empty-icon" aria-hidden="true">✳</span>
+        <span>Search for something you love.<br />The pictures will find their way here.</span>
+      </p>
+      <div id="results" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>FIELDNOTES / A VISUAL FIELD GUIDE</span>
+    <span>Made for the curious</span>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
