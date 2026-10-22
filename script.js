@@ -3,6 +3,7 @@ const input = document.getElementById("search-input");
 const results = document.getElementById("results");
 const emptyState = document.getElementById("empty-state");
 const resultsNote = document.querySelector(".results-note");
+let activeController;
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -12,19 +13,29 @@ form.addEventListener("submit", async (event) => {
     return;
   }
 
-  results.innerHTML = "";
+  activeController?.abort();
+  const controller = new AbortController();
+  activeController = controller;
+
+  results.replaceChildren();
+  results.setAttribute("aria-busy", "true");
   emptyState.hidden = true;
+  resultsNote.classList.add("is-loading");
   resultsNote.textContent = `Searching for “${query}”…`;
 
   const url = `https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6&gsrlimit=12&gsrsearch=${encodeURIComponent(query)}&prop=imageinfo&iiprop=url&iiurlwidth=640`;
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, { signal: controller.signal });
     if (!response.ok) {
       throw new Error(`Image search failed with status ${response.status}.`);
     }
 
     const data = await response.json();
+    if (controller.signal.aborted) {
+      return;
+    }
+
     const pages = Object.values(data.query?.pages ?? {});
     let renderedCount = 0;
 
@@ -70,10 +81,26 @@ form.addEventListener("submit", async (event) => {
         `No images found for “${query}”. Try another search.`;
     }
   } catch (error) {
+    if (controller.signal.aborted) {
+      return;
+    }
+
     resultsNote.textContent = "The image search could not be completed.";
     emptyState.hidden = false;
     emptyState.querySelector("span:last-child").textContent =
       "Please check your connection and try searching again.";
     console.error(error);
+  } finally {
+    if (activeController === controller) {
+      results.setAttribute("aria-busy", "false");
+      resultsNote.classList.remove("is-loading");
+    }
   }
+});
+
+document.querySelectorAll(".chip").forEach((chip) => {
+  chip.addEventListener("click", () => {
+    input.value = chip.textContent.trim();
+    form.requestSubmit();
+  });
 });

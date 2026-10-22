@@ -198,6 +198,29 @@ h1 span {
   font-size: 0.75rem;
 }
 
+.results-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.results-note.is-loading::before {
+  width: 0.8rem;
+  height: 0.8rem;
+  flex: 0 0 auto;
+  border: 2px solid var(--line);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 700ms linear infinite;
+  content: "";
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .chip-row {
   display: flex;
   flex-wrap: wrap;
@@ -267,6 +290,19 @@ h1 span {
   border: 1px solid var(--line);
   border-radius: 4px;
   background: #fbfaf6;
+  animation: appear 240ms ease both;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .image-card-link {
@@ -335,5 +371,16 @@ h1 span {
 
   .site-footer {
     flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

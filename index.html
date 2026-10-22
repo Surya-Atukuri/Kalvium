@@ -51,13 +51,13 @@
     <section class="discover" aria-label="Image search results">
       <div class="results-heading">
         <span class="eyebrow">The collection</span>
-        <span class="results-note">Your next find will land here</span>
+        <span class="results-note" role="status" aria-live="polite" aria-atomic="true">Your next find will land here</span>
       </div>
       <p id="empty-state" class="empty-state">
         <span class="empty-icon" aria-hidden="true">✳</span>
         <span>Search for something you love.<br />The pictures will find their way here.</span>
       </p>
-      <div id="results" aria-live="polite"></div>
+      <div id="results" aria-busy="false"></div>
     </section>
   </main>
 
