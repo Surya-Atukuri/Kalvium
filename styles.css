@@ -262,6 +262,34 @@ h1 span {
   margin-top: 1.4rem;
 }
 
+.image-card {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #fbfaf6;
+}
+
+.image-card-link {
+  display: block;
+  color: inherit;
+}
+
+.image-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--paper-deep);
+}
+
+.image-card-caption {
+  margin: 0;
+  padding: 0.8rem 0.9rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
 .site-footer {
   display: flex;
   justify-content: space-between;
